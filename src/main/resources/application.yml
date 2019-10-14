@@ -1,0 +1,21 @@
+allowed:
+  routes:
+    - path: /auth-service/**
+    - path: /user-service/**
+
+server:
+  port: 8080
+spring:
+  redis:
+    host: localhost
+    database: 0
+    port: 6379
+
+zuul:
+  routes:
+    auth:
+      path: /auth-service
+      stripPrefix: false
+    user:
+      path: /user-service
+      stripPrefix: false
