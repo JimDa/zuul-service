@@ -1,17 +1,16 @@
 package com.example.zuul.config;
 
-import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Component
+@ConfigurationProperties(prefix = "allowed.routes")
 public class IgnoredUrlsConfig {
-    private List<String> path;
+    private List<String> path = new ArrayList<>();
+    private String haha;
 
     public String[] getUrls() {
         String[] urlArr = new String[this.path.size()];
@@ -19,5 +18,17 @@ public class IgnoredUrlsConfig {
             urlArr[i] = this.path.get(i);
         }
         return urlArr;
+    }
+
+    public List<String> getPath() {
+        return path;
+    }
+
+    public String getHaha() {
+        return haha;
+    }
+
+    public void setHaha(String haha) {
+        this.haha = haha;
     }
 }

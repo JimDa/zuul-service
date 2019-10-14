@@ -1,4 +1,5 @@
 allowed:
+  haha: ddd
   routes:
     - path: /auth-service/**
     - path: /user-service/**

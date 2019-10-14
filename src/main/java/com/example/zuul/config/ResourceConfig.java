@@ -1,6 +1,7 @@
 package com.example.zuul.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,8 +28,8 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
 
     private RedisConnectionFactory redisConnectionFactory;
 
-//    @Autowired
-//    private IgnoredUrlsConfig gatewayIgnoredUrls;
+    @Autowired
+    private IgnoredUrlsConfig gatewayIgnoredUrls;
 
     @Override
     public void configure(final HttpSecurity http) throws Exception {
@@ -36,7 +37,7 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers(gatewayIgnoredUrls().getUrls()).permitAll()
+                .antMatchers(gatewayIgnoredUrls.getUrls()).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
@@ -91,11 +92,11 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
         return new CustomClaimVerifier();
     }
 
-    @Bean
-    @ConfigurationProperties(prefix = "allowed.routes")
-    public IgnoredUrlsConfig gatewayIgnoredUrls() {
-        return new IgnoredUrlsConfig();
-    }
+//    @Bean
+//    @ConfigurationProperties(prefix = "allowed.routes")
+//    public IgnoredUrlsConfig gatewayIgnoredUrls() {
+//        return new IgnoredUrlsConfig();
+//    }
 
 
 }
