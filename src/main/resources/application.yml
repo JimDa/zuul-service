@@ -1,8 +1,6 @@
-allowed:
-  haha: ddd
-  routes:
-    - path: /auth-service/**
-    - path: /user-service/**
+#allowed.routes:
+#    - path: /auth-service/**
+#    - path: /user-service/**
 
 server:
   port: 8080
@@ -14,9 +12,11 @@ spring:
 
 zuul:
   routes:
-    auth:
-      path: /auth-service
+    auth-service:
+      path: /auth-service/**
       stripPrefix: false
-    user:
-      path: /user-service
+      url: http://localhost:8081
+    user-service:
+      path: /user-service/**
       stripPrefix: false
+      url: http://localhost:8082
