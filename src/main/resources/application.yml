@@ -1,6 +1,8 @@
-#allowed.routes:
-#    - path: /auth-service/**
-#    - path: /user-service/**
+allowed:
+  routes:
+    all: ddd
+#    path: /auth-service
+#    path: /user-service
 
 server:
   port: 8080
