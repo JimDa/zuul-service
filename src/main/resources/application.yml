@@ -22,3 +22,4 @@ zuul:
       path: /user-service/**
       stripPrefix: false
       url: http://localhost:8082
+  sensitive-headers: Cookie,Set-Cookie
