@@ -2,7 +2,10 @@ package com.example.zuul.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.*;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.OAuthBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -18,23 +21,20 @@ import java.util.Arrays;
 @Configuration
 public class SwaggerApiConfig {
 
-    //    @Bean
-//    public Docket createRestApi() {
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .apiInfo(apiInfo());
-//    }
-//
-//    private ApiInfo apiInfo() {
-//        return new ApiInfoBuilder()
-//                .title("eZ-blog")
-//                .description("简易博客")
-//                .termsOfServiceUrl("http://localhost:8080")//网关端口
-//                .version("1.0")
-//                .build();
-//    }
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("ez-blog")
+                .description("简易博客")
+                .termsOfServiceUrl("http://localhost:8080")//网关端口
+                .version("1.0")
+                .build();
+    }
+
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).select()
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
@@ -47,20 +47,21 @@ public class SwaggerApiConfig {
         return SecurityConfigurationBuilder.builder()
                 .clientId("fooClientIdPassword")
                 .clientSecret("secret")
-                .scopeSeparator(",")
+                .scopeSeparator(" ")
                 .useBasicAuthenticationWithAccessCodeGrant(true)
                 .build();
     }
 
     private SecurityScheme securityScheme() {
-        GrantType grantType = new AuthorizationCodeGrantBuilder()
-                .tokenEndpoint(new TokenEndpoint("http://127.0.0.1:8081/oauth" + "/token", "oauthtoken"))
-                .tokenRequestEndpoint(
-                        new TokenRequestEndpoint("http://127.0.0.1:8081/oauth" + "/authorize", "fooClientIdPassword", "secret"))
-                .build();
+//        GrantType grantType = new AuthorizationCodeGrantBuilder()
+//                .tokenEndpoint(new TokenEndpoint("http://127.0.0.1:8081/oauth/token", "oauthtoken"))
+//                .tokenRequestEndpoint(
+//                        new TokenRequestEndpoint("http://127.0.0.1:8081/oauth/authorize", "fooClientIdPassword", "secret"))
+//                .build();
+        ResourceOwnerPasswordCredentialsGrant grant = new ResourceOwnerPasswordCredentialsGrant("http://127.0.0.1:8081/oauth/token");
 
         SecurityScheme oauth = new OAuthBuilder().name("spring_oauth")
-                .grantTypes(Arrays.asList(grantType))
+                .grantTypes(Arrays.asList(grant))
                 .scopes(Arrays.asList(scopes()))
                 .build();
         return oauth;
@@ -70,8 +71,8 @@ public class SwaggerApiConfig {
         AuthorizationScope[] scopes = {
                 new AuthorizationScope("read", "for read operations"),
                 new AuthorizationScope("write", "for write operations"),
-                new AuthorizationScope("delete", "delete foo API"),
-                new AuthorizationScope("update", "Access foo API")};
+                new AuthorizationScope("delete", "for delete operations"),
+                new AuthorizationScope("update", "for update operations")};
         return scopes;
     }
 

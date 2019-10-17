@@ -1,6 +1,5 @@
 package com.example.zuul.config;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import springfox.documentation.swagger.web.SwaggerResource;
@@ -15,7 +14,7 @@ public class SwaggerDocumentConfig implements SwaggerResourcesProvider {
     @Override
     public List<SwaggerResource> get() {
         return new ArrayList() {{
-            add(buildSwaggerResource("用户中心", "/user-service/v1/api-docs", "1.0"));
+            add(buildSwaggerResource("用户中心", "/user-service/v2/api-docs", "1.0"));
         }};
     }
 
