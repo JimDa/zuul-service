@@ -15,6 +15,7 @@ public class SwaggerDocumentConfig implements SwaggerResourcesProvider {
     public List<SwaggerResource> get() {
         return new ArrayList() {{
             add(buildSwaggerResource("用户中心", "/user-service/v2/api-docs", "1.0"));
+            add(buildSwaggerResource("社区中心", "/user-community/v2/api-docs", "1.0"));
         }};
     }
 
