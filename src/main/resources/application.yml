@@ -22,6 +22,10 @@ zuul:
       path: /user-service/**
       stripPrefix: false
       url: http://localhost:8082
+    community-service:
+      path: /user-community
+      stripPrefix: false
+      url: http://localhost:8083
   sensitive-headers: Cookie,Set-Cookie
 
 ribbon:
