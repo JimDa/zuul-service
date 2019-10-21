@@ -17,6 +17,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
 
+/**
+ * @author dpc
+ */
 @EnableSwagger2
 @Configuration
 public class SwaggerApiConfig {
@@ -25,7 +28,8 @@ public class SwaggerApiConfig {
         return new ApiInfoBuilder()
                 .title("ez-blog")
                 .description("简易博客")
-                .termsOfServiceUrl("http://localhost:8080")//网关端口
+                //网关端口
+                .termsOfServiceUrl("http://localhost:8080")
                 .version("1.0")
                 .build();
     }
@@ -86,7 +90,6 @@ public class SwaggerApiConfig {
 
     @Bean
     UiConfiguration uiConfig() {
-        return new UiConfiguration(null, "list", "alpha", "schema",
-                UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS, false, true, 60000L);
+        return new UiConfiguration(null, "list", "alpha", "schema", UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS, false, true, 60000L);
     }
 }
